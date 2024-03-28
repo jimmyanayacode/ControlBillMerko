@@ -1,0 +1,107 @@
+<div class="flex justify-center items-center h-screen">
+  <!-- <form class="flex flex-col" [formGroup]="registerUserForm" (ngSubmit)="registerUser()"> -->
+  <form
+    class="w-3/12 flex flex-col p-8 bg-indigo-300 rounded shadow-lg"
+    [formGroup]="registerUserForm"
+    (ngSubmit)="registerUser()"
+    autocomplete="off"
+  >
+
+    <div class="mb-4">
+      <mat-form-field class="w-full">
+        <mat-label>Nombre</mat-label>
+        <input
+          formControlName="userName"
+          matInput
+          placeholder="Escribe tu nombre"
+        />
+        @if( isValidField('userName') ){
+          <mat-error>{{getErrorMessage( 'userName' )}}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="mb-4">
+      <mat-form-field class="w-full">
+        <mat-label>Email</mat-label>
+        <input
+          formControlName="userEmail"
+          matInput
+          type="email"
+          placeholder="Escribe tú email"
+        />
+        @if( isValidField('userEmail')){
+          <mat-error>{{ getErrorMessage( 'userEmail' ) }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="mb-4">
+      <mat-form-field class="w-full">
+        <mat-label>Nickname</mat-label>
+        <input
+          formControlName="userNickName"
+          matInput
+          type="text"
+          placeholder="Escribe tú nickname"
+        />
+        @if( isValidField('userNickName')){
+          <mat-error>{{ getErrorMessage( 'userNickName' ) }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+
+
+    <div class="mb-4">
+      <mat-form-field class="w-full">
+        <mat-label>Contraseña</mat-label>
+        <input
+          formControlName="userPassword"
+          matInput
+          type="password"
+          placeholder="Escribe tú contraseña"
+        />
+        @if( isValidField('userPassword')){
+          <mat-error>{{ getErrorMessage( 'userPassword' ) }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="mb-4">
+      <mat-form-field class="w-full">
+        <mat-label>Confirmar contraseña</mat-label>
+        <input
+          formControlName="userPasswordConfirm"
+          matInput
+          type="password"
+          placeholder="Confirma tú contraseña"
+        />
+        @if( isValidField('userPasswordConfirm')){
+          <mat-error>{{ getErrorMessage( 'userPasswordConfirm' ) }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="text-center pb-2">
+      <button  type="submit" mat-raised-button color="primary">Registrar Usuario</button>
+    </div>
+
+    <div class="text-center">
+     <span>Ya estas <strong><a [routerLink]="['/user/login-user']">registrado</a></strong></span>
+    </div>
+  </form>
+</div>
+
+<h5>form valid {{ registerUserForm.valid }}</h5>
+<h5>Form Errors</h5>
+<pre>{{ registerUserForm.errors | json }}</pre>
+
+<h5>Email</h5>
+<pre>{{ registerUserForm.controls['userEmail'].errors | json }}</pre>
+
+<h5>Username</h5>
+<pre>{{ registerUserForm.controls['userNickName'].errors | json }}</pre>
+
+<h5>Confirmar</h5>
+<pre>{{  registerUserForm.controls['userPasswordConfirm'].errors | json }}</pre>
