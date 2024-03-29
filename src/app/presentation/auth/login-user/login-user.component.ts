@@ -17,6 +17,7 @@ import { LoginUserService } from '../../services/auth/loginUser/login-user.servi
 import { HttpClientModule } from '@angular/common/http';
 import { ErrordialogComponent } from '../../components/errordialog/errordialog.component';
 import { SpinnerLoaderComponent } from '../../components/spinnerLoader/spinner-loader/spinner-loader.component';
+import { StatusAuthService } from '../../services/auth/statusAuth/status-auth.service';
 
 @Component({
   selector: 'app-login-user',
@@ -41,7 +42,7 @@ export default class LoginUserComponent {
   isLoading: boolean = false;
 
   constructor(public dialog: MatDialog) {
-    this.loginUserService.checkAuthStatus().subscribe()
+    this.authService.checkAuthStatus().subscribe();
   }
 
 
@@ -50,6 +51,7 @@ export default class LoginUserComponent {
 
   private validatorsService = inject(ValidatorsService);
   private loginUserService = inject(LoginUserService);
+  private authService = inject(StatusAuthService)
 
   public loginUserForm: FormGroup = this.fb.group({
     loginUserEmail: [

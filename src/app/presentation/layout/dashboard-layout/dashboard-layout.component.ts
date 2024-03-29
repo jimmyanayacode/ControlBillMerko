@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginUserService } from '../../services/auth/loginUser/login-user.service';
 import { AuthStatus } from '../../../interfaces/auth';
+import { StatusAuthService } from '../../services/auth/statusAuth/status-auth.service';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -15,10 +16,10 @@ import { AuthStatus } from '../../../interfaces/auth';
 })
 export class DashboardLayoutComponent {
 
-  authServie = inject( LoginUserService );
+  authService = inject( StatusAuthService );
 
   constructor(){
-    this.authServie.checkAuthStatus().subscribe()
+    this.authService.checkAuthStatus().subscribe()
   }
 
   public routes = routes[0].children?.filter( route => route.data );

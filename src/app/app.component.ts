@@ -1,8 +1,8 @@
 import { Component, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
-import { LoginUserService } from './presentation/services/auth/loginUser/login-user.service';
 import { AuthStatus } from './interfaces/auth';
+import { StatusAuthService } from './presentation/services/auth/statusAuth/status-auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent {
 
   constructor(){}
 
-  private authService = inject(LoginUserService);
+  private authService = inject(StatusAuthService);
   private router = inject(Router);
 
   public finishedAuthCheck = effect(() => {

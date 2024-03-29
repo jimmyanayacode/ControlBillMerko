@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,9 +9,12 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ValidatorsService } from '../../services/validators/validators.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterService } from '../../services/auth/registerAuth/register.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ErrordialogComponent } from '../../components/errordialog/errordialog.component';
 
 @Component({
   selector: 'app-register-user',
@@ -24,19 +27,24 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     RouterModule,
     CommonModule,
+    MatDialogModule
   ],
   templateUrl: './register-user.component.html',
   styleUrl: './register-user.component.css',
 })
 export default class RegisterUserComponent {
   constructor(
+    public dialog: MatDialog,
     private fb: FormBuilder,
     private validatorsService: ValidatorsService
   ) {}
 
+  private registerService = inject(RegisterService);
+  private router = inject(Router);
+
   public registerUserForm: FormGroup = this.fb.group(
     {
-      userName: [
+      userNameRegister: [
         '',
         [
           Validators.required,
@@ -45,24 +53,24 @@ export default class RegisterUserComponent {
           ),
         ],
       ],
-      userEmail: [
+      userEmailRegister: [
         '',
         [
           Validators.required,
           Validators.pattern(this.validatorsService.emailPattern),
         ],
       ],
-      userNickName: [
+      userNickNameRegister: [
         '',
         [Validators.required, this.validatorsService.cantBeStrider],
       ],
-      userPassword: ['', [Validators.required, Validators.minLength(6)]],
+      userPasswordRegister: ['', [Validators.required, Validators.minLength(6)]],
       userPasswordConfirm: ['', [Validators.required]],
     },
     {
       validators: [
         this.validatorsService.isFieldOneEqualFieldTwo(
-          'userPassword',
+          'userPasswordRegister',
           'userPasswordConfirm'
         ),
       ],
@@ -79,8 +87,22 @@ export default class RegisterUserComponent {
       return;
     }
 
+    const { userNameRegister, userEmailRegister, userPasswordRegister } = this.registerUserForm.value;
+
     console.log('hola');
     console.log(this.registerUserForm.value);
+
+    this.registerService.register( userEmailRegister, userNameRegister, userPasswordRegister).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/dashboard')
+      },
+      error: (message) => {
+        this.openDialog(message);
+      }
+    })
+
+
+
   }
 
   getErrorMessage(field: string): string {
@@ -105,7 +127,22 @@ export default class RegisterUserComponent {
     }
     return '';
   }
+
+  openDialog(errorMessage: string): void {
+    const dialogRef = this.dialog.open(ErrordialogComponent, {
+      width: '550px',
+      height: '150px',
+      data: { message: errorMessage },
+    });
+
+    dialogRef.afterClosed().subscribe()
+  }
+
 }
+
+
+
+
 
 /* const control = this.registerUserForm.get(field)
 
