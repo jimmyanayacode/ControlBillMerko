@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterService } from '../../services/auth/registerAuth/register.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ErrordialogComponent } from '../../components/errordialog/errordialog.component';
+import { SpinnerLoaderComponent } from '../../components/spinnerLoader/spinner-loader/spinner-loader.component';
 
 @Component({
   selector: 'app-register-user',
@@ -27,12 +28,16 @@ import { ErrordialogComponent } from '../../components/errordialog/errordialog.c
     ReactiveFormsModule,
     RouterModule,
     CommonModule,
-    MatDialogModule
+    MatDialogModule,
+    SpinnerLoaderComponent
   ],
   templateUrl: './register-user.component.html',
   styleUrl: './register-user.component.css',
 })
 export default class RegisterUserComponent {
+
+  isLoading: boolean = false;
+
   constructor(
     public dialog: MatDialog,
     private fb: FormBuilder,
@@ -87,17 +92,18 @@ export default class RegisterUserComponent {
       return;
     }
 
-    const { userNameRegister, userEmailRegister, userPasswordRegister } = this.registerUserForm.value;
+    this.isLoading = true;
 
-    console.log('hola');
-    console.log(this.registerUserForm.value);
+    const { userNameRegister, userEmailRegister, userPasswordRegister } = this.registerUserForm.value;
 
     this.registerService.register( userEmailRegister, userNameRegister, userPasswordRegister).subscribe({
       next: () => {
+        this.isLoading = false;
         this.router.navigateByUrl('/dashboard')
       },
       error: (message) => {
         this.openDialog(message);
+        this.isLoading  = false;
       }
     })
 
@@ -113,7 +119,7 @@ export default class RegisterUserComponent {
     for (const error of Object.keys(errors)) {
       switch (error) {
         case 'required':
-          return 'Este campo es obligatorio';
+          return 'Campo obligatorio';
 
         case 'pattern':
           return 'Formato incorrecto';
@@ -122,7 +128,7 @@ export default class RegisterUserComponent {
           return `Mínimo ${errors['minlength'].requiredLength} letras.`;
 
         case 'notEqual':
-          return `Las contraseñas no son iguales`;
+          return `Contraseñas no iguales`;
       }
     }
     return '';
@@ -144,19 +150,3 @@ export default class RegisterUserComponent {
 
 
 
-/* const control = this.registerUserForm.get(field)
-
-    if ( control?.errors ) {
-      if ( control.errors['required']) {
-        return 'Este campo es obligatorio'
-      }
-      if (control.errors['pattern']) {
-
-        console.log(control.errors['pattern'])
-        return `Formato errado`
-      }
-      if (control.errors['minlength']) {
-        return `Minimo ${ control.errors['minlength'].requiredLength } caracteres`
-      }
-
-    } */

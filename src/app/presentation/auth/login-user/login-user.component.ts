@@ -104,7 +104,7 @@ export default class LoginUserComponent {
     for (const error of Object.keys(errors)) {
       switch (error) {
         case 'required':
-          return 'Este campo es obligatorio';
+          return 'Campo obligatorio';
 
         case 'pattern':
           return 'Formato incorrecto';

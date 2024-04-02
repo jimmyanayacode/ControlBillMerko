@@ -121,28 +121,9 @@ export default class AddBillComponent {
       && this.addBillForm.controls[field].touched
 
   }
-
-  onLogout(){
-    this.authService.logout();
-    /* this.router.navigateByUrl('/auth/login'); */
-  }
-
-  /* getFieldError( field: string ){
-
-    if ( !this.addBillForm.controls[field] ) return null;
-
-    const errors = this.addBillForm.controls[field].errors || {};
-
-    for (const key of Object.keys(errors)) {
-
-    }
-
-
-  } */
-
-
-  /* End form bill */
-
-
-
 }
+
+
+
+
+
