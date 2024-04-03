@@ -25,11 +25,9 @@ export class ToolbarComponent {
 
   toggleMenu(){
     this.toolbarService.toggleNavigationMenu();
-    console.log(this.toolbarService.toggleNavigation())
   }
 
   onLogout(){
     this.authService.logoutUser();
   }
-
 }
