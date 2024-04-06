@@ -4,6 +4,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import {MatTableModule} from '@angular/material/table';
+
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
@@ -13,20 +14,23 @@ import {MatButtonModule} from '@angular/material/button';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Router, RouterModule } from '@angular/router';
 import { LoginUserService } from '../../services/auth/loginUser/login-user.service';
+import { TableInfoComponent } from '../../components/tableInfo/table-info/table-info.component';
 
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 
 export interface Provider {
   name: string;
   credit: boolean;
   retention: boolean;
 }
+
+/* export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
+
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
@@ -39,13 +43,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+]; */
 
 @Component({
   selector: 'app-add-bill',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  imports: [ MatCheckboxModule, MatDatepickerModule, RouterModule, MatButtonModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, FormsModule, ReactiveFormsModule ],
+  imports: [ MatCheckboxModule, MatDatepickerModule, RouterModule, MatButtonModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, FormsModule, ReactiveFormsModule, TableInfoComponent ],
   templateUrl: './add-bill.component.html',
   styleUrl: './add-bill.component.css'
 })
@@ -57,9 +61,10 @@ export default class AddBillComponent {
   router = inject(Router)
 
   /* Bills table */
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  /* displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
 
+  */
   /* Form bill */
   public addBillForm: FormGroup = this.fb.group({
     numberBill: ['', [Validators.required, Validators.minLength(3)]],

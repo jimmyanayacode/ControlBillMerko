@@ -1,1 +1,34 @@
-<p>search-bill works!</p>
+<div class="flex flex-col col-span-2 h-full bg-customBlack p-8 mt-5">
+  <h2 class="font-medium text-lg lg:text-2xl text-indigo-500 mb-5 text-center">
+    Facturas registradas
+  </h2>
+
+  <div class="self-center mb-2">
+    <label class="font-medium" id="example-radio-group-label">Seleccione el mes de ingreso </label>
+    <mat-button-toggle-group class="bg-white bg-opacity-10 p-1 mb-2 ml-2" [formControl]="monthsSelected" name="fontStyle"
+      aria-label="Font Style" multiple>
+      @for( item of months; track item.index ){
+      <mat-button-toggle color="primary" class="hover:bg-customPrimary hover:text-white rounded-md p-1 transition-colors m-1"
+        [value]="item.index">{{ item.month }}</mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+  </div>
+
+  <div class= "self-center mb-2">
+    <label class="font-medium mr-2" id="radio-group-label">Estado de facturas</label>
+    <mat-radio-group [formControl]="statusBillsFind" aria-labelledby="radio-group-label" class="btn-primary">
+      @for (statusBill of statusBills; track statusBill.index) {
+      <mat-radio-button [value]="statusBill.index" aria-labelledby="{{ statusBill.status }}">{{statusBill.status}}</mat-radio-button>
+      }
+    </mat-radio-group>
+  </div>
+
+
+  <div>
+    <component-table [filterProperty]="true"></component-table>
+  </div>
+
+
+  <p>Chosen value is {{monthsSelected.value}}</p>
+  <p>Chosen value is {{statusBillsFind.value}}</p>
+</div>
