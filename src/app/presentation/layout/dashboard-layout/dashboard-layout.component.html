@@ -1,18 +1,23 @@
 <main class="flex flex-row">
+  <!-- Menu -->
   @if( menu() ){
   <nav
     id="navMenu"
-    class="hidden sm:flex flex-col w-[370px] min-h-[calc(100vh-3.0rem)] bg-white bg-opacity-10 p-5"
+    class="w-full bg-customBackgroundBlack p-10 fixed inset-0 z-50 sm:relative  sm:max-w-[370px] sm:h-auto sm:bg-white sm:bg-opacity-10"
   >
     <div class="flex flex-row items-baseline justify-between">
       <h1
-        class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/80 bg-clip-text text-transparent"
+        class="font-bold text-3xl bg-gradient-to-br from-white via-white/80 bg-clip-text text-transparent"
       >
         Merkofamiliar<span class="text-indigo-500">.</span>
       </h1>
+
     </div>
 
-    <span class="text-xl text-center">Bienvenido</span>
+
+    <span class="text-xl">Bienvenido</span>
+
+
     <div class="border-gray-700 border my-3"></div>
 
     <!-- Nav Links -->
@@ -28,16 +33,20 @@
   </nav>
   }
 
+  <!-- Content Main -->
   <div class="flex flex-col w-full">
-    <div>
+    <div class="mb-5">
       <app-toolbar></app-toolbar>
     </div>
-    <div class="mx-1 sm:mx-5 flex flex-col">
+    <div class="mx-3 sm:mx-5 flex flex-col">
       <div class="flex flex-row">
-        <div class="flex flex-col w-full h-full bg-customBackgroundBlack">
+        <div class="flex flex-col w-full bg-customBackgroundBlack">
           <router-outlet />
         </div>
       </div>
     </div>
   </div>
 </main>
+<!--
+class="hidden sm:flex flex-col w-full sm:w-[370px] min-h-[calc(100vh-3.0rem)] bg-white bg-opacity-10 p-5" -->
+<!-- class="fixed inset-50 z-50 flex flex-col w-full sm:w-[370px] min-h-[calc(100vh-3.0rem)] bg-white bg-opacity-10 p-5" -->

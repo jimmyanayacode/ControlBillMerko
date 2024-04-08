@@ -1,1 +1,22 @@
-<p>filter-control works!</p>
+<div class="mb-2">
+  <label class="font-medium" id="example-radio-group-label">Seleccione el mes de ingreso </label>
+  <mat-button-toggle-group class="grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-12 bg-white bg-opacity-10 p-1 mb-2 ml-2" [formControl]="monthsSelected" name="fontStyle"
+    aria-label="Font Style" multiple>
+    @for( item of months; track item.index ){
+    <mat-button-toggle color="primary" class="text-center hover:bg-customPrimary hover:text-white rounded-md p-1 transition-colors m-1"
+      [value]="item.index">{{ item.month }}</mat-button-toggle>
+    }
+  </mat-button-toggle-group>
+</div>
+
+<div class= "flex flex-col mb-2">
+  <label class="font-medium" id="radio-group-label">Estado de facturas</label>
+  <mat-radio-group [formControl]="statusBillsFind" aria-labelledby="radio-group-label" class="flex flex-row bg-indigo-500 text-center font-bold py-2 rounded-lg hover:bg-indigo-700 transition-all duration-200 ease-in-out self-center">
+    @for (statusBill of statusBills; track statusBill.index) {
+    <mat-radio-button [value]="statusBill.index" aria-labelledby="{{ statusBill.status }}">{{statusBill.status}}</mat-radio-button>
+    }
+  </mat-radio-group>
+</div>
+
+<!-- <p>Chosen value is {{monthsSelected.value}}</p>
+  <p>Chosen value is {{statusBillsFind.value}}</p> -->

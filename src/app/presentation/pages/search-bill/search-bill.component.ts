@@ -4,6 +4,7 @@ import { MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatRadioModule} from '@angular/material/radio';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FilterControlComponent } from '../../components/filterControl/filter-control/filter-control.component';
 
 interface MonthsInterface {
   month: string;
@@ -18,7 +19,7 @@ interface StatusBillsInterface {
 @Component({
   selector: 'app-search-bill',
   standalone: true,
-  imports: [ TableInfoComponent, MatButtonToggleModule, ReactiveFormsModule, FormsModule, CommonModule, MatRadioModule ],
+  imports: [ TableInfoComponent, MatButtonToggleModule, ReactiveFormsModule, FormsModule, CommonModule, MatRadioModule, FilterControlComponent ],
   templateUrl: './search-bill.component.html',
   styleUrl: './search-bill.component.css'
 })
@@ -26,7 +27,7 @@ interface StatusBillsInterface {
 
 export default class SearchBillComponent {
 
-  months:MonthsInterface[] = [
+ /*  months:MonthsInterface[] = [
     { month: 'Enero', index: "1" },
     { month: 'Febrero', index: "2" },
     { month: 'Marzo', index: "3" },
@@ -46,6 +47,6 @@ export default class SearchBillComponent {
   { status: 'Canceladas', index: "3"} ];
 
   monthsSelected = new FormControl('');
-  statusBillsFind = new FormControl('Todas')
+  statusBillsFind = new FormControl('Todas') */
 
 }
