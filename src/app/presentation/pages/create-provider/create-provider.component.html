@@ -29,12 +29,27 @@
      <mat-form-field>
         <mat-label>Tipo de pago</mat-label>
         <mat-select formControlName="credit" required>
-          <mat-option value="false">Contado</mat-option>
-          <mat-option value="true">Credito</mat-option>
+          <mat-option [value]="false">Contado</mat-option>
+          <mat-option [value]="true">Credito</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-checkbox formControlName="SelfWithholding" class=" bg-indigo-500 py-2 px-4 rounded-md hover:bg-indigo-700 mb-6 transition-all duration-200 ease-in-out;">Autoretenedor</mat-checkbox>
+      <!-- Provider name -->
+      <mat-form-field>
+        <mat-label>Nombre vendedor</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Ingrese nombre del vendedor"
+          formControlName="salemen"
+          required
+        />
+      </mat-form-field>
+
+      <mat-checkbox formControlName="selfWithHolding" class=" bg-indigo-500 py-2 px-4 rounded-md hover:bg-indigo-700 mb-6 transition-all duration-200 ease-in-out;">Autoretenedor</mat-checkbox>
+      <mat-checkbox formControlName="timelyPaymentDiscont" class=" bg-indigo-500 py-2 px-4 rounded-md hover:bg-indigo-700 mb-6 transition-all duration-200 ease-in-out;">Aplica descuento financiero</mat-checkbox>
+
+
 
       <button type="submit" mat-raised-button color="primary">
         Guardar Factura

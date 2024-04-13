@@ -14,10 +14,10 @@ import { StatusAuthService } from './presentation/services/auth/statusAuth/statu
 export class AppComponent {
   title = 'billsControlApp';
 
-  constructor(){}
-
-  private authService = inject(StatusAuthService);
-  private router = inject(Router);
+  constructor(
+    private authService: StatusAuthService,
+    private router: Router
+  ) { }
 
   public finishedAuthCheck = effect(() => {
     switch (this.authService.authStatus()) {
@@ -26,7 +26,7 @@ export class AppComponent {
       case AuthStatus.authenticated:
         this.router.navigateByUrl('/dashboard');
         return
-      case AuthStatus.notAutehticated:
+      case AuthStatus.notAuthenticated:
         this.router.navigateByUrl('/auth/login');
         return
     }

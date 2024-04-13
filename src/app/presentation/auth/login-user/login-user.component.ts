@@ -41,17 +41,16 @@ export default class LoginUserComponent {
 
   isLoading: boolean = false;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog,
+    private validatorsService: ValidatorsService,
+  private loginUserService: LoginUserService,
+  private authService: StatusAuthService
+  ) {
     this.authService.checkAuthStatus().subscribe();
   }
 
-
   private router = inject(Router);
   private fb = inject(FormBuilder);
-
-  private validatorsService = inject(ValidatorsService);
-  private loginUserService = inject(LoginUserService);
-  private authService = inject(StatusAuthService)
 
   public loginUserForm: FormGroup = this.fb.group({
     loginUserEmail: [
