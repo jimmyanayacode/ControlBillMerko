@@ -5,6 +5,7 @@ import { Provider } from '../../../interfaces/provider/provider.interface';
 import { ProviderResponseInterface } from '../../../interfaces/provider/providerFromBackend.interface';
 import { catchError, map, throwError } from 'rxjs';
 import { ProviderMapperService } from '../mappers/provider-mapper.service';
+import { ProvidersWithInvoiceDetails } from '../../../interfaces/provider/providerDetailsInvoice.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,19 @@ export class ProviderService {
         return throwError(() => new Error('Failed to create provider'));
       })
     );
-
   }
+
+  getAllProvidersInvoiceDetatils(){
+    const url = `${ this.baseUrl }/provider/info-invoices`;
+    return this.http.get<ProvidersWithInvoiceDetails[]>(url).pipe(
+      map((resp) => {
+        console.log(resp)
+        return resp
+      }),
+      catchError(error => {
+        return throwError(() => new Error('Failed to get all providers'))
+      })
+    )
+  }
+
 }

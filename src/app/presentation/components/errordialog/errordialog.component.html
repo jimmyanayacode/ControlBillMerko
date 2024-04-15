@@ -1,4 +1,14 @@
-<h1 mat-dialog-title>Error revise su información</h1>
+@if(  data.typeMessage  ) {
+  <h1 mat-dialog-title>Proceso exitoso</h1>
 <mat-dialog-content>
   {{ data.message }}
 </mat-dialog-content>
+} @else {
+  <h1 mat-dialog-title>Error en proceso</h1>
+<mat-dialog-content>
+  {{ data.message }}
+</mat-dialog-content>
+}
+
+
+

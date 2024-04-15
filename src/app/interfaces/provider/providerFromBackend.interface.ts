@@ -1,4 +1,4 @@
-export interface ProviderResponseInterface {
+ export interface ProviderResponseInterface {
   name:                 string;
   creditAvalible:       boolean;
   withHolding:          boolean;
@@ -8,3 +8,4 @@ export interface ProviderResponseInterface {
   _id?:                  string;
   __v?:                  number;
 }
+

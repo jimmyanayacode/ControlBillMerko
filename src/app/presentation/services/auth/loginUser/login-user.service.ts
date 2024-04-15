@@ -1,8 +1,13 @@
-import { Injectable, inject } from '@angular/core';
-import { environment } from '../../../../../environment/environments';
+/* service v1.0.1 */
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
+import { Observable, catchError, map, throwError } from 'rxjs';
+
+import { environment } from '../../../../../environment/environments';
+
 import { LoginUserResponse } from '../../../../interfaces/auth';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+
 import { StatusAuthService } from '../statusAuth/status-auth.service';
 
 @Injectable({
@@ -10,10 +15,9 @@ import { StatusAuthService } from '../statusAuth/status-auth.service';
 })
 export class LoginUserService {
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private authService: StatusAuthService){}
 
   private readonly baseUrl: string = environment.baseUrl;
-  private authService = inject(StatusAuthService)
 
   login(email: string, password: string): Observable<boolean> {
 
