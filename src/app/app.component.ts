@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthStatus } from './interfaces/auth';

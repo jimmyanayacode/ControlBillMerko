@@ -40,6 +40,7 @@ export class ProviderMapperService {
       shoppingValue: providersWithInvoiceResponseDetails.shoppingValue,
       balanceCount: providersWithInvoiceResponseDetails.balanceCount,
       totalPayValue: providersWithInvoiceResponseDetails.totalPayValue,
+      totalCreditPending: providersWithInvoiceResponseDetails.totalCreditPending
     };
   }
 }

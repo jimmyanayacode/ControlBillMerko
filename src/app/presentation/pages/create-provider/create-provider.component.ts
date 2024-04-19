@@ -50,8 +50,8 @@ export default class CreateProviderComponent implements OnInit, OnDestroy {
   displayedColumnsProvider: { title: string, key: string }[] = [
     { title: 'Proveedor', key: 'name' },
     { title: 'Valor compras', key: 'shoppingValue' },
-    { title: 'Valor credito', key: 'balanceCount' },
-    { title: 'Facturas Pendientes', key: 'totalPayValue' }
+    { title: 'Valor credito', key: 'totalCreditPending' },
+    { title: 'Facturas Pendientes', key: 'balanceCount' }
   ];
 
   constructor(

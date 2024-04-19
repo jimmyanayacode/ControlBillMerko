@@ -4,4 +4,5 @@ export interface ProvidersWithInvoiceDetails {
   shoppingValue: number;
   balanceCount:  number;
   totalPayValue: number;
+  totalCreditPending: number;
 }

@@ -36,12 +36,10 @@ export class ProviderService {
   getAllProvidersInvoiceDetatils(){
     const url = `${ this.baseUrl }/provider/info-invoices`;
     return this.http.get<ProvidersWithInvoiceDetails[]>(url).pipe(
-      map((resp) => {
-        console.log(resp)
-        return resp
-      }),
+      map( resp => resp.map( provider => this.mapperProvider.providersWithInvoiceDetails(provider))),
       catchError(error => {
-        return throwError(() => new Error('Failed to get all providers'))
+        console.error('Error fetching provider details:', error);
+        return throwError(() => new Error('Failed to get all providers'));
       })
     )
   }
