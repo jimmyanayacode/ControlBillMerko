@@ -19,16 +19,12 @@ export class LoginUserService {
 
   private readonly baseUrl: string = environment.baseUrl;
 
-  login(email: string, password: string): Observable<boolean> {
+  login(email: string, password: string): Observable<LoginUserResponse> {
 
     const url = `${this.baseUrl}/auth/login`;
     const body = { email, password }
-
     return this.http.post<LoginUserResponse>(url, body)
-      .pipe(
-        map(({ user, token }) => this.authService.setAuthentication(user, token)),
-        catchError(err => throwError(() => err.error.message))
-      )
+
   }
 
   logout(){

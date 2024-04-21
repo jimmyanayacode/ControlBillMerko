@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { DashboardLayoutComponent } from './presentation/layout/dashboard-layout/dashboard-layout.component';
 import AuthPageComponent from './presentation/auth/auth-page/auth-page.component';
 import { isAuthenticatedGuard } from './presentation/guards/is-authenticated/is-authenticated.guard';
-import { isNotAuthenticatedGuard } from './presentation/guards/isNotAuthenticated/is-not-authenticated.guard';
 
 export const routes: Routes = [
   {
@@ -16,9 +15,9 @@ export const routes: Routes = [
           import(
             './presentation/pages/add-bill/add-bill.component'
           ),
-          data: {
-            item: 'Adicionar factura'
-          }
+        data: {
+          item: 'Adicionar factura'
+        }
       },
       {
         path: 'search-bill',
@@ -26,16 +25,16 @@ export const routes: Routes = [
           import(
             './presentation/pages/search-bill/search-bill.component'
           ),
-          data: {
-            item: 'Buscar facturas'
-          }
+        data: {
+          item: 'Buscar facturas'
+        }
       },
       {
         path: 'create-provider',
         loadComponent: () =>
-        import(
-          './presentation/pages/create-provider/create-provider.component'
-        ),
+          import(
+            './presentation/pages/create-provider/create-provider.component'
+          ),
         data: {
           item: 'Crear proveedor'
         }
@@ -48,10 +47,8 @@ export const routes: Routes = [
     ],
   },
   {
-
     path: 'user',
     component: AuthPageComponent,
-    canActivate: [isNotAuthenticatedGuard],
     children: [
       {
         path: 'register-user',
@@ -68,7 +65,6 @@ export const routes: Routes = [
       }
     ]
   },
-
   {
     path: '**',
     redirectTo: 'user',

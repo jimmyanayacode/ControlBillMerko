@@ -1,8 +1,6 @@
-import { Component, effect } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
-import { AuthStatus } from './interfaces/auth';
-import { StatusAuthService } from './presentation/services/auth/statusAuth/status-auth.service';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,23 +12,8 @@ import { StatusAuthService } from './presentation/services/auth/statusAuth/statu
 export class AppComponent {
   title = 'billsControlApp';
 
-  constructor(
-    private authService: StatusAuthService,
-    private router: Router
-  ) { }
+  constructor() {}
 
-  public finishedAuthCheck = effect(() => {
-    switch (this.authService.authStatus()) {
-      case AuthStatus.checking:
-        return;
-      case AuthStatus.authenticated:
-        this.router.navigateByUrl('/dashboard');
-        return
-      case AuthStatus.notAuthenticated:
-        this.router.navigateByUrl('/auth/login');
-        return
-    }
-  })
 }
 
 

@@ -4,6 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { ProvidersWithInvoiceDetails } from '../../../../interfaces/provider/providerDetailsInvoice.interface';
+import { BillFromBackend } from '../../../../interfaces/bill/billFromBackend,interface';
 
 
 @Component({
@@ -17,17 +18,18 @@ import { ProvidersWithInvoiceDetails } from '../../../../interfaces/provider/pro
 export class TableInfoComponent implements OnChanges {
 
   @Input() filterProperty: boolean = false
-  @Input() providersData: ProvidersWithInvoiceDetails[] = []
+  @Input() dataTable: any[] = []
   @Input() displayedColumnsDinamic:{ title: string, key: string }[] = []
+  /* @Input() billsData: BillFromBackend[] = [] */
 
   displayedColumns: string[] = [];
-  dataSource = new MatTableDataSource<ProvidersWithInvoiceDetails>(this.providersData);
+  dataSource = new MatTableDataSource<any>(this.dataTable);
 
 constructor(){}
 
   ngOnChanges(changes: SimpleChanges): void {
     if ( changes['displayedColumnsDinamic']) this.displayedColumns = changes['displayedColumnsDinamic'].currentValue.map((col:any) => col.key );
-    if (changes['providersData']) this.dataSource.data = changes['providersData'].currentValue;
+    if (changes['dataTable'] ) this.dataSource.data = changes['dataTable'].currentValue;
   }
 
   applyFilter(event: Event) {
@@ -37,7 +39,7 @@ constructor(){}
   }
 
   providers(){
-    console.log(this.providersData)
+    console.log(this.dataTable)
   }
 
 }

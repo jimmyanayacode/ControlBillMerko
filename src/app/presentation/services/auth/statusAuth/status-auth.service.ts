@@ -3,11 +3,13 @@ import { Observable, catchError, map, of, retry } from 'rxjs';
 import { environment } from '../../../../../environment/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthStatus, CheckTokenInterface, User } from '../../../../interfaces/auth';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatusAuthService {
+
 
   private readonly baseUrl: string = environment.baseUrl;
 
@@ -19,7 +21,7 @@ export class StatusAuthService {
   public currentUser = computed(() => this._currentUser());
   public authStatus = computed(() => this._authStatus());
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router:Router) { }
 
   // Safe getter for localStorage items
   private getLocalStorageItem(key: string): string | null {
@@ -71,6 +73,7 @@ export class StatusAuthService {
     this._currentUser.set(user);
     this._authStatus.set(AuthStatus.authenticated);
     this.setLocalStorageItem('token', token);
+    this.router.navigateByUrl('/dashboard');
     return true;
   }
 
@@ -79,6 +82,7 @@ export class StatusAuthService {
     this.removeLocalStorageItem('token');
     this._currentUser.set(null);
     this._authStatus.set(AuthStatus.notAuthenticated);
+    this.router.navigateByUrl('/auth/login');
   }
 
 }

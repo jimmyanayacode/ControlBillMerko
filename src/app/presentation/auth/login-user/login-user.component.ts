@@ -100,14 +100,15 @@ export default class LoginUserComponent implements OnInit, OnDestroy {
       .login(loginUserEmail, loginUserPassword)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: () => {
+        next: ({user, token}) => {
           this.isLoading = false;
-          this.router.navigateByUrl('/dashboard');
+          this.authService.setAuthentication( user, token )
           this.loginUserForm.reset();
         },
         error: (message) => {
           this.openDialog(message);
           this.isLoading = false;
+          this.authService.logoutUser();
         },
       });
   }

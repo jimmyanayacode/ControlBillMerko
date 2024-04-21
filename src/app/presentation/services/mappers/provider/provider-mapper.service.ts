@@ -1,8 +1,8 @@
-import { ProvidersWithInvoiceDetails } from './../../../interfaces/provider/providerDetailsInvoice.interface';
+import { ProvidersWithInvoiceDetails } from '../../../../interfaces/provider/providerDetailsInvoice.interface';
 import { Injectable } from '@angular/core';
-import { Provider } from '../../../interfaces/provider/provider.interface';
-import { ProviderResponseInterface } from '../../../interfaces/provider/providerFromBackend.interface';
-import { ProvidersWithInvoiceResponseDetails } from '../../../interfaces/provider/providerDetailsInvoiceFromBackend.interface';
+import { Provider } from '../../../../interfaces/provider/provider.interface';
+import { ProviderResponseInterface } from '../../../../interfaces/provider/providerFromBackend.interface';
+import { ProvidersWithInvoiceResponseDetails } from '../../../../interfaces/provider/providerDetailsInvoiceFromBackend.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +10,11 @@ import { ProvidersWithInvoiceResponseDetails } from '../../../interfaces/provide
 export class ProviderMapperService {
   constructor() {}
 
-  providerBackendToProvider(
+  providerFromBackendToProvider(
     providerFromBackend: ProviderResponseInterface
   ): Provider {
     return {
+      _id: providerFromBackend._id,
       providerName: providerFromBackend.name,
       credit: providerFromBackend.creditAvalible,
       selfWithHolding: providerFromBackend.withHolding,
