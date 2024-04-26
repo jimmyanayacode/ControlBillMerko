@@ -1,7 +1,7 @@
 /* component v1.0.1 */
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,11 +9,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { Subject, takeUntil } from 'rxjs';
 
@@ -23,6 +23,7 @@ import { ValidatorsService } from '../../services/validators/validators.service'
 
 import { ErrordialogComponent } from '../../components/errordialog/errordialog.component';
 import { SpinnerLoaderComponent } from '../../components/spinnerLoader/spinner-loader/spinner-loader.component';
+import { DialogService } from '../../services/dashboard/dialog/dialog.service';
 
 @Component({
   selector: 'app-login-user',
@@ -32,12 +33,12 @@ import { SpinnerLoaderComponent } from '../../components/spinnerLoader/spinner-l
     FormsModule,
     HttpClientModule,
     MatButtonModule,
-    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
     RouterModule,
     SpinnerLoaderComponent,
+    ErrordialogComponent
   ],
   templateUrl: './login-user.component.html',
   styleUrl: './login-user.component.css',
@@ -47,11 +48,9 @@ export default class LoginUserComponent implements OnInit, OnDestroy {
   public loginUserForm: FormGroup;
   private destroy$ = new Subject<void>();
 
-  private router = inject(Router);
-
   constructor(
-    public dialog: MatDialog,
     private authService: StatusAuthService,
+    private dialogService: DialogService,
     private fb: FormBuilder,
     private loginUserService: LoginUserService,
     private validatorsService: ValidatorsService
@@ -106,7 +105,7 @@ export default class LoginUserComponent implements OnInit, OnDestroy {
           this.loginUserForm.reset();
         },
         error: (message) => {
-          this.openDialog(message);
+          this.dialogService.openDialog(message.error.message, false);
           this.isLoading = false;
           this.authService.logoutUser();
         },
@@ -138,15 +137,5 @@ export default class LoginUserComponent implements OnInit, OnDestroy {
       }
     }
     return '';
-  }
-
-  openDialog(errorMessage: string): void {
-    const dialogRef = this.dialog.open(ErrordialogComponent, {
-      width: '550px',
-      height: '150px',
-      data: { message: errorMessage },
-    });
-
-    dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe();
   }
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 
+
 @Component({
   selector: 'app-errordialog',
   standalone: true,
@@ -17,4 +18,5 @@ export class ErrordialogComponent  {
     @Inject(MAT_DIALOG_DATA) public data: { message:string, typeMessage: boolean },
     public dialog: MatDialog,
   ){}
+
 }

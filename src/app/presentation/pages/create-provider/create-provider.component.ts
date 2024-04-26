@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -17,7 +16,6 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { Subject, takeUntil } from 'rxjs';
 
-import { ErrordialogComponent } from '../../components/errordialog/errordialog.component';
 import { FilterControlComponent } from '../../components/filterControl/filter-control/filter-control.component';
 import { TableInfoComponent } from '../../components/tableInfo/table-info/table-info.component';
 
@@ -25,20 +23,21 @@ import { ProviderService } from '../../services/provider/provider.service';
 
 import { Provider } from '../../../interfaces/provider/provider.interface';
 import { ProvidersWithInvoiceDetails } from '../../../interfaces/provider/providerDetailsInvoice.interface';
+import { DialogService } from '../../services/dashboard/dialog/dialog.service';
 
 @Component({
   selector: 'app-create-provider',
   standalone: true,
   imports: [
+    FilterControlComponent,
+    FormsModule,
+    MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,
-    MatButtonModule,
     MatInputModule,
     MatSelectModule,
-    FormsModule,
     ReactiveFormsModule,
     TableInfoComponent,
-    FilterControlComponent,
   ],
   templateUrl: './create-provider.component.html',
   styleUrl: './create-provider.component.css',
@@ -55,7 +54,7 @@ export default class CreateProviderComponent implements OnInit, OnDestroy {
   ];
 
   constructor(
-    public dialog: MatDialog,
+    private dialogService:DialogService,
     private fb: FormBuilder,
     private providerService: ProviderService
   ) {
@@ -80,6 +79,7 @@ export default class CreateProviderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // Limpieza de recursos para evitar fugas de memoria
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -95,8 +95,7 @@ export default class CreateProviderComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
-          console.log('Provider created', response);
-          this.openDialog(`Se creo el proveedor: ${response.name} en base de datos`, true)
+          this.dialogService.openDialog(`Se creo el proveedor: ${response.name} en base de datos`, true)
           this.addProviderForm.reset();
           Object.keys(this.addProviderForm.controls).forEach((key) => {
             this.addProviderForm.get(key)?.setErrors(null);
@@ -104,17 +103,8 @@ export default class CreateProviderComponent implements OnInit, OnDestroy {
           });
         },
         error: (error) => { console.error('Error creating provider:', error);
-          this.openDialog(`No se pudo crear el proveedor: ${error}`, false)
+          this.dialogService.openDialog(`No se pudo crear el proveedor: ${error}`, false)
          }
       });
-  }
-
-  openDialog(errorMessage: string, typeMessage:boolean):void {
-    const dialogRef = this.dialog.open(ErrordialogComponent, {
-      width: '550px',
-      height: '150px',
-      data: { message: errorMessage, typeMessage}
-    });
-    dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe();
   }
 }

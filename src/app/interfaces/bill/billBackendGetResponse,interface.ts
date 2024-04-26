@@ -1,5 +1,5 @@
 
-export interface BillFromBackend {
+export interface BillBackendGetResponse {
   _id:             string;
   numberBill:      string;
   provider:        Provider;

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
@@ -21,7 +21,13 @@ interface StatusBillsInterface {
   templateUrl: './filter-control.component.html',
   styleUrl: './filter-control.component.css'
 })
-export class FilterControlComponent {
+export class FilterControlComponent implements OnInit {
+
+  ngOnInit(): void {
+    this.monthsSelected.valueChanges.subscribe(values => {
+      console.log("meses seleccionados: ", values)
+    })
+  }
 
   months:MonthsInterface[] = [
     { month: 'Enero', index: "1" },
@@ -42,7 +48,7 @@ export class FilterControlComponent {
   {status: 'Pendientes', index: "2"},
   { status: 'Canceladas', index: "3"} ];
 
-  monthsSelected = new FormControl('');
+  monthsSelected = new FormControl([]);
   statusBillsFind = new FormControl('Todas')
 
 }

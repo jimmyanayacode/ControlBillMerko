@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TableInfoComponent } from '../../components/tableInfo/table-info/table-info.component';
 import { MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatRadioModule} from '@angular/material/radio';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FilterControlComponent } from '../../components/filterControl/filter-control/filter-control.component';
+import { BillService } from '../../services/bill/bill.service';
+import { Subject, map, takeUntil } from 'rxjs';
 
 interface MonthsInterface {
   month: string;
@@ -25,7 +27,24 @@ interface StatusBillsInterface {
 })
 
 
-export default class SearchBillComponent {
+export default class SearchBillComponent implements OnInit{
+
+  private destroy$ = new Subject<void>();
+
+
+
+
+
+
+
+  constructor( private billService:BillService) {}
+
+  ngOnInit(): void {
+    this.billService.getByDateMonth("2024", "1").pipe(
+      takeUntil(this.destroy$)).subscribe({
+        next: console.log
+      })
+  }
 
  /*  months:MonthsInterface[] = [
     { month: 'Enero', index: "1" },
