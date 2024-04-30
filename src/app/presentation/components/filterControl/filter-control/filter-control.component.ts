@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
+import { BillService } from '../../../services/bill/bill.service';
 
 interface MonthsInterface {
   month: string;
@@ -23,11 +24,19 @@ interface StatusBillsInterface {
 })
 export class FilterControlComponent implements OnInit {
 
+  constructor( private billService:BillService){}
+
   ngOnInit(): void {
     this.monthsSelected.valueChanges.subscribe(values => {
-      console.log("meses seleccionados: ", values)
+       console.log(values)
+      /*this.billService.getByDateMonths('2024', values || []).subscribe({
+        next: console.log(this.billService.currentBill())
+      }) */
+
     })
+
   }
+
 
   months:MonthsInterface[] = [
     { month: 'Enero', index: "1" },

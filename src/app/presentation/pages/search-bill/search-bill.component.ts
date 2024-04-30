@@ -31,19 +31,13 @@ export default class SearchBillComponent implements OnInit{
 
   private destroy$ = new Subject<void>();
 
-
-
-
-
-
-
   constructor( private billService:BillService) {}
 
   ngOnInit(): void {
-    this.billService.getByDateMonth("2024", "1").pipe(
+    /* this.billService.getByDateMonths("2024", ['1', '2']).pipe(
       takeUntil(this.destroy$)).subscribe({
         next: console.log
-      })
+      }) */
   }
 
  /*  months:MonthsInterface[] = [
