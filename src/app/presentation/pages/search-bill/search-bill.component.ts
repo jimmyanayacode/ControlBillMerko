@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TableInfoComponent } from '../../components/tableInfo/table-info/table-info.component';
-import { MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatRadioModule} from '@angular/material/radio';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FilterControlComponent } from '../../components/filterControl/filter-control/filter-control.component';
 import { BillService } from '../../services/bill/bill.service';
-import { Subject, map, takeUntil } from 'rxjs';
+import { Subject, Subscription, map, takeUntil } from 'rxjs';
+import { Bill } from '../../../interfaces/bill';
 
 interface MonthsInterface {
   month: string;
@@ -15,32 +16,48 @@ interface MonthsInterface {
 
 interface StatusBillsInterface {
   status: string;
-  index:  string;
+  index: string;
 }
 
 @Component({
   selector: 'app-search-bill',
   standalone: true,
-  imports: [ TableInfoComponent, MatButtonToggleModule, ReactiveFormsModule, FormsModule, CommonModule, MatRadioModule, FilterControlComponent ],
+  imports: [
+    TableInfoComponent,
+    MatButtonToggleModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
+    MatRadioModule,
+    FilterControlComponent,
+  ],
   templateUrl: './search-bill.component.html',
-  styleUrl: './search-bill.component.css'
+  styleUrl: './search-bill.component.css',
 })
-
-
-export default class SearchBillComponent implements OnInit{
-
+export default class SearchBillComponent implements OnInit {
   private destroy$ = new Subject<void>();
 
-  constructor( private billService:BillService) {}
-
-  ngOnInit(): void {
-    /* this.billService.getByDateMonths("2024", ['1', '2']).pipe(
-      takeUntil(this.destroy$)).subscribe({
-        next: console.log
-      }) */
+  constructor(private billService: BillService) {
+    this.subscription = new Subscription();
   }
 
- /*  months:MonthsInterface[] = [
+  bills: Bill[] = [];
+  private subscription: Subscription;
+
+  ngOnInit(): void {
+    this.subscription = this.billService.currentBillFindByControl().subscribe(
+      (bills: Bill[]) => {
+        this.bills = bills;
+        console.log(this.bills); // Esto registrará cada cambio de 'bills'
+      },
+      (error: Error) => {
+        console.error('Error fetching bills:', error);
+      }
+    );
+  }
+}
+
+/*  months:MonthsInterface[] = [
     { month: 'Enero', index: "1" },
     { month: 'Febrero', index: "2" },
     { month: 'Marzo', index: "3" },
@@ -61,5 +78,3 @@ export default class SearchBillComponent implements OnInit{
 
   monthsSelected = new FormControl('');
   statusBillsFind = new FormControl('Todas') */
-
-}
