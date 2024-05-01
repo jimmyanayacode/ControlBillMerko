@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { StatusAuthService } from '../../../services/auth/statusAuth/status-auth.service';
-import { ToolbarService } from '../../../services/dashboard/toolbar/toolbar.service';
+import { StatusAuthService } from '../../../../core/services/auth/statusAuth/status-auth.service';
+import { ToolbarService } from '../../../../core/services/dashboard/toolbar/toolbar.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -13,21 +13,18 @@ import { ToolbarService } from '../../../services/dashboard/toolbar/toolbar.serv
   styleUrl: './toolbar.component.css',
 })
 export class ToolbarComponent {
-
   private elemento!: HTMLElement;
 
-  constructor(){
-  }
+  constructor() {}
 
   private authService = inject(StatusAuthService);
   private toolbarService = inject(ToolbarService);
 
-
-  toggleMenu(){
+  toggleMenu() {
     this.toolbarService.toggleNavigationMenu();
   }
 
-  onLogout(){
+  onLogout() {
     this.authService.logoutUser();
   }
 }

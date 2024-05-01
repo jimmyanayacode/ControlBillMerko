@@ -19,11 +19,10 @@ import { Subject, takeUntil } from 'rxjs';
 import { FilterControlComponent } from '../../components/filterControl/filter-control/filter-control.component';
 import { TableInfoComponent } from '../../components/tableInfo/table-info/table-info.component';
 
-import { ProviderService } from '../../services/provider/provider.service';
-
-import { Provider } from '../../../interfaces/provider/provider.interface';
-import { ProvidersWithInvoiceDetails } from '../../../interfaces/provider/providerDetailsInvoice.interface';
-import { DialogService } from '../../services/dashboard/dialog/dialog.service';
+import { Provider } from '../../../models/interfaces/provider/provider.interface';
+import { ProvidersWithInvoiceDetails } from '../../../models/interfaces/provider/providerDetailsInvoice.interface';
+import { DialogService } from '../../../core/services/dashboard/dialog/dialog.service';
+import { ProviderService } from '../../../core/services/provider/provider.service';
 
 @Component({
   selector: 'app-create-provider',
@@ -45,16 +44,16 @@ import { DialogService } from '../../services/dashboard/dialog/dialog.service';
 export default class CreateProviderComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   public addProviderForm: FormGroup;
-  public providersResponse: ProvidersWithInvoiceDetails[] = []
-  displayedColumnsProvider: { title: string, key: string }[] = [
+  public providersResponse: ProvidersWithInvoiceDetails[] = [];
+  displayedColumnsProvider: { title: string; key: string }[] = [
     { title: 'Proveedor', key: 'name' },
     { title: 'Valor compras', key: 'shoppingValue' },
     { title: 'Valor credito', key: 'totalCreditPending' },
-    { title: 'Facturas Pendientes', key: 'balanceCount' }
+    { title: 'Facturas Pendientes', key: 'balanceCount' },
   ];
 
   constructor(
-    private dialogService:DialogService,
+    private dialogService: DialogService,
     private fb: FormBuilder,
     private providerService: ProviderService
   ) {
@@ -67,15 +66,17 @@ export default class CreateProviderComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
-    (this.providerService.getAllProvidersInvoiceDetatils())
-    .pipe(takeUntil(this.destroy$)).subscribe({
-      next: (data: ProvidersWithInvoiceDetails[]) => {
-        this.providersResponse = data;
-      },
-      error: (error) => {
-        console.error('Error fetching providers: ', error);
-      }
-    });
+    this.providerService
+      .getAllProvidersInvoiceDetatils()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data: ProvidersWithInvoiceDetails[]) => {
+          this.providersResponse = data;
+        },
+        error: (error) => {
+          console.error('Error fetching providers: ', error);
+        },
+      });
   }
 
   ngOnDestroy(): void {
@@ -95,16 +96,23 @@ export default class CreateProviderComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
-          this.dialogService.openDialog(`Se creo el proveedor: ${response.name} en base de datos`, true)
+          this.dialogService.openDialog(
+            `Se creo el proveedor: ${response.name} en base de datos`,
+            true
+          );
           this.addProviderForm.reset();
           Object.keys(this.addProviderForm.controls).forEach((key) => {
             this.addProviderForm.get(key)?.setErrors(null);
             this.addProviderForm.get(key)?.markAsUntouched();
           });
         },
-        error: (error) => { console.error('Error creating provider:', error);
-          this.dialogService.openDialog(`No se pudo crear el proveedor: ${error}`, false)
-         }
+        error: (error) => {
+          console.error('Error creating provider:', error);
+          this.dialogService.openDialog(
+            `No se pudo crear el proveedor: ${error}`,
+            false
+          );
+        },
       });
   }
 }

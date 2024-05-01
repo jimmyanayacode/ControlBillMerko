@@ -1,8 +1,8 @@
-import { ProvidersWithInvoiceDetails } from '../../../../interfaces/provider/providerDetailsInvoice.interface';
 import { Injectable } from '@angular/core';
-import { Provider } from '../../../../interfaces/provider/provider.interface';
-import { ProviderResponseInterface } from '../../../../interfaces/provider/providerFromBackend.interface';
-import { ProvidersWithInvoiceResponseDetails } from '../../../../interfaces/provider/providerDetailsInvoiceFromBackend.interface';
+import { ProviderResponseInterface } from '../../../models/interfaces/provider/providerFromBackend.interface';
+import { Provider } from '../../../models/interfaces/provider/provider.interface';
+import { ProvidersWithInvoiceDetails } from '../../../models/interfaces/provider/providerDetailsInvoice.interface';
+import { ProvidersWithInvoiceResponseDetails } from '../../../models/interfaces/provider/providerDetailsInvoiceFromBackend.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +41,8 @@ export class ProviderMapperService {
       shoppingValue: providersWithInvoiceResponseDetails.shoppingValue,
       balanceCount: providersWithInvoiceResponseDetails.balanceCount,
       totalPayValue: providersWithInvoiceResponseDetails.totalPayValue,
-      totalCreditPending: providersWithInvoiceResponseDetails.totalCreditPending
+      totalCreditPending:
+        providersWithInvoiceResponseDetails.totalCreditPending,
     };
   }
 }

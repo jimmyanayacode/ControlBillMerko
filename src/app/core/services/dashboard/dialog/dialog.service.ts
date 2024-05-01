@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrordialogComponent } from '../../../components/errordialog/errordialog.component';
 import { Subject, takeUntil } from 'rxjs';
+import { ErrordialogComponent } from '../../../../presentation/components/errordialog/errordialog.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DialogService {
-
   private destroy$ = new Subject<void>();
-  constructor( private dialog: MatDialog ) { }
+  constructor(private dialog: MatDialog) {}
 
   openDialog(errorMessage: string, typeMessage: boolean): void {
-    console.log(errorMessage)
+    console.log(errorMessage);
     const dialogRef = this.dialog.open(ErrordialogComponent, {
       width: '550px',
       height: '150px',
@@ -20,5 +19,4 @@ export class DialogService {
     });
     dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe();
   }
-
 }

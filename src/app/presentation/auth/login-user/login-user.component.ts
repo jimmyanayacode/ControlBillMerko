@@ -17,13 +17,12 @@ import { RouterModule } from '@angular/router';
 
 import { Subject, takeUntil } from 'rxjs';
 
-import { LoginUserService } from '../../services/auth/loginUser/login-user.service';
-import { StatusAuthService } from '../../services/auth/statusAuth/status-auth.service';
-import { ValidatorsService } from '../../services/validators/validators.service';
-
 import { ErrordialogComponent } from '../../components/errordialog/errordialog.component';
 import { SpinnerLoaderComponent } from '../../components/spinnerLoader/spinner-loader/spinner-loader.component';
-import { DialogService } from '../../services/dashboard/dialog/dialog.service';
+import { StatusAuthService } from '../../../core/services/auth/statusAuth/status-auth.service';
+import { DialogService } from '../../../core/services/dashboard/dialog/dialog.service';
+import { LoginUserService } from '../../../core/services/auth/loginUser/login-user.service';
+import { ValidatorsService } from '../../../core/services/validators/validators.service';
 
 @Component({
   selector: 'app-login-user',
@@ -38,7 +37,7 @@ import { DialogService } from '../../services/dashboard/dialog/dialog.service';
     ReactiveFormsModule,
     RouterModule,
     SpinnerLoaderComponent,
-    ErrordialogComponent
+    ErrordialogComponent,
   ],
   templateUrl: './login-user.component.html',
   styleUrl: './login-user.component.css',
@@ -99,9 +98,9 @@ export default class LoginUserComponent implements OnInit, OnDestroy {
       .login(loginUserEmail, loginUserPassword)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: ({user, token}) => {
+        next: ({ user, token }) => {
           this.isLoading = false;
-          this.authService.setAuthentication( user, token )
+          this.authService.setAuthentication(user, token);
           this.loginUserForm.reset();
         },
         error: (message) => {

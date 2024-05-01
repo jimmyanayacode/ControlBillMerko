@@ -14,12 +14,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
 
-import { RegisterService } from '../../services/auth/registerAuth/register.service';
-import { ValidatorsService } from '../../services/validators/validators.service';
-
 import { ErrordialogComponent } from '../../components/errordialog/errordialog.component';
 import { SpinnerLoaderComponent } from '../../components/spinnerLoader/spinner-loader/spinner-loader.component';
 import { Subject, takeUntil } from 'rxjs';
+import { ValidatorsService } from '../../../core/services/validators/validators.service';
+import { RegisterService } from '../../../core/services/auth/registerAuth/register.service';
 
 @Component({
   selector: 'app-register-user',
@@ -33,13 +32,12 @@ import { Subject, takeUntil } from 'rxjs';
     RouterModule,
     CommonModule,
     MatDialogModule,
-    SpinnerLoaderComponent
+    SpinnerLoaderComponent,
   ],
   templateUrl: './register-user.component.html',
   styleUrl: './register-user.component.css',
 })
 export default class RegisterUserComponent implements OnDestroy {
-
   public isLoading: boolean = false;
   public registerUserForm: FormGroup;
   private destroy$ = new Subject<void>();
@@ -74,7 +72,10 @@ export default class RegisterUserComponent implements OnDestroy {
           '',
           [Validators.required, this.validatorsService.cantBeStrider],
         ],
-        userPasswordRegister: ['', [Validators.required, Validators.minLength(6)]],
+        userPasswordRegister: [
+          '',
+          [Validators.required, Validators.minLength(6)],
+        ],
         userPasswordConfirm: ['', [Validators.required]],
       },
       {
@@ -105,19 +106,22 @@ export default class RegisterUserComponent implements OnDestroy {
     }
 
     this.isLoading = true;
-    const { userNameRegister, userEmailRegister, userPasswordRegister } = this.registerUserForm.value;
-    this.registerService.register(userEmailRegister, userNameRegister, userPasswordRegister).pipe(
-      takeUntil(this.destroy$)).subscribe({
+    const { userNameRegister, userEmailRegister, userPasswordRegister } =
+      this.registerUserForm.value;
+    this.registerService
+      .register(userEmailRegister, userNameRegister, userPasswordRegister)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
         next: () => {
           this.isLoading = false;
-          this.router.navigateByUrl('/dashboard')
+          this.router.navigateByUrl('/dashboard');
           this.registerUserForm.reset();
         },
         error: (message) => {
           this.openDialog(message);
           this.isLoading = false;
-        }
-      })
+        },
+      });
   }
 
   getErrorMessage(field: string): string {
@@ -149,11 +153,6 @@ export default class RegisterUserComponent implements OnDestroy {
       height: '150px',
       data: { message: errorMessage },
     });
-    dialogRef.afterClosed().subscribe()
+    dialogRef.afterClosed().subscribe();
   }
 }
-
-
-
-
-

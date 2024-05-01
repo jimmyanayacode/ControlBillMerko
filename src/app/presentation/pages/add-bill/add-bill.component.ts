@@ -20,15 +20,14 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 
 import { Subject, takeUntil } from 'rxjs';
 
-import { BillService } from '../../services/bill/bill.service';
-import { ProviderService } from '../../services/provider/provider.service';
-import { StatusAuthService } from '../../services/auth/statusAuth/status-auth.service';
-
 import { TableInfoComponent } from '../../components/tableInfo/table-info/table-info.component';
 
-import { Provider } from '../../../interfaces/provider/provider.interface';
-import { BillBackendGetResponse, Bill } from '../../../interfaces/bill';
-import { DialogService } from '../../services/dashboard/dialog/dialog.service';
+import { Provider } from '../../../models/interfaces/provider/provider.interface';
+import { BillBackendGetResponse, Bill } from '../../../models/interfaces/bill';
+import { BillService } from '../../../core/services/bill/bill.service';
+import { ProviderService } from '../../../core/services/provider/provider.service';
+import { StatusAuthService } from '../../../core/services/auth/statusAuth/status-auth.service';
+import { DialogService } from '../../../core/services/dashboard/dialog/dialog.service';
 
 @Component({
   selector: 'app-add-bill',
