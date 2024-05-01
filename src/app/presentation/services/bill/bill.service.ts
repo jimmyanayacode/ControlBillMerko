@@ -1,9 +1,9 @@
 import { environment } from '../../../../environment/environments';
 
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, OnInit, computed, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { catchError, map, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, throwError } from 'rxjs';
 
 import { BillMapperService } from '../mappers/bill/bill-mapper.service';
 
@@ -19,9 +19,9 @@ import {
 export class BillService {
   private readonly baseUrl: string = environment.baseUrl;
 
-  private _billFindByControl = signal<any>(null);
-
+  private _billFindByControl = signal<Bill[]>([]);
   public currentBillFindByControl = computed(() => this._billFindByControl());
+
 
   constructor(
     private http: HttpClient,
@@ -64,9 +64,11 @@ export class BillService {
     const monthParam = month.join(',');
     console.log(monthParam);
     const url = `${this.baseUrl}/bill/dateMany/${year}/${monthParam}`;
-    return this.http.get(url).pipe(
+    return this.http.get<Bill[]>(url).pipe(
       map((bills) => {
         this._billFindByControl.set(bills);
+
+        console.log(this.currentBillFindByControl())
       })
     );
   }

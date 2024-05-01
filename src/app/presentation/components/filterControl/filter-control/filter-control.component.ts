@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { BillService } from '../../../services/bill/bill.service';
 import { Subject, debounceTime, filter, takeUntil } from 'rxjs';
+import { Bill } from '../../../../interfaces/bill';
 
 interface MonthsInterface {
   month: string;
@@ -30,11 +31,12 @@ interface StatusBillsInterface {
   styleUrl: './filter-control.component.css',
 })
 export class FilterControlComponent implements OnInit, OnDestroy {
-  private unsubscribe$ = new Subject<void>();
+  private destroy$= new Subject<void>();
 
   constructor(private billService: BillService) {}
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class FilterControlComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(750),
         filter((values) => values !== null && values.length > 0),
-        takeUntil(this.unsubscribe$)
+        takeUntil(this.destroy$)
       )
       .subscribe((values) => {
         console.log(values);

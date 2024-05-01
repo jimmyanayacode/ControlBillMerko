@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, inject } from '@angular/core';
 import { TableInfoComponent } from '../../components/tableInfo/table-info/table-info.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
@@ -35,46 +35,22 @@ interface StatusBillsInterface {
   styleUrl: './search-bill.component.css',
 })
 export default class SearchBillComponent implements OnInit {
-  private destroy$ = new Subject<void>();
 
-  constructor(private billService: BillService) {
-    this.subscription = new Subscription();
-  }
 
-  bills: Bill[] = [];
-  private subscription: Subscription;
+  public billsResponse: Bill[] = []
 
-  ngOnInit(): void {
-    this.subscription = this.billService.currentBillFindByControl().subscribe(
-      (bills: Bill[]) => {
-        this.bills = bills;
-        console.log(this.bills); // Esto registrará cada cambio de 'bills'
-      },
-      (error: Error) => {
-        console.error('Error fetching bills:', error);
-      }
-    );
-  }
+public displayedColumnsBill: { title: string; key: string} [] = [
+  { title: 'Proveedor', key: 'provider' },
+    { title: '# Factura', key: 'numberBill' },
+    { title: 'Valor factura', key: 'value' },
+    { title: 'Fecha ingreso', key: 'dateInput' },
+    { title: 'Valor pendiente', key: 'balance' },
+]
+
+constructor( private billService:BillService ){}
+
+ngOnInit(){}
+
+
 }
 
-/*  months:MonthsInterface[] = [
-    { month: 'Enero', index: "1" },
-    { month: 'Febrero', index: "2" },
-    { month: 'Marzo', index: "3" },
-    { month: 'Abril', index: "4" },
-    { month: 'Mayo', index: "5" },
-    { month: 'Junio', index: "6" },
-    { month: 'Julio', index: "7" },
-    { month: 'Agosto', index: "8" },
-    { month: 'Septiembre', index: "9" },
-    { month: 'Octubre', index: "10" },
-    { month: 'Noviembre', index: "11" },
-    { month: 'Diciembre', index: "12" }
-  ]
-  statusBills:StatusBillsInterface[] = [
-  {status: "Todas", index: "1"},
-  {status: 'Pendientes', index: "2"},
-  { status: 'Canceladas', index: "3"} ];
-
-  monthsSelected = new FormControl('');
-  statusBillsFind = new FormControl('Todas') */
