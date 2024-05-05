@@ -6,7 +6,7 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 
 import { environment } from '../../../../../environment/environments';
 
-import { LoginUserResponse } from '../../../../models/interfaces/auth';
+import { LoginUserResponse } from '../../../../domain/models/interfaces/auth';
 
 import { StatusAuthService } from '../statusAuth/status-auth.service';
 

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { catchError, map, throwError } from 'rxjs';
 import { environment } from '../../../../../environment/environments';
-import { UserRegisterResponse } from '../../../../models/interfaces/auth/register-response.interface';
+import { UserRegisterResponse } from '../../../../domain/models/interfaces/auth/register-response.interface';
 import { StatusAuthService } from '../statusAuth/status-auth.service';
 
 interface UserResponse {

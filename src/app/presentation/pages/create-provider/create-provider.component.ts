@@ -19,10 +19,10 @@ import { Subject, takeUntil } from 'rxjs';
 import { FilterControlComponent } from '../../components/filterControl/filter-control/filter-control.component';
 import { TableInfoComponent } from '../../components/tableInfo/table-info/table-info.component';
 
-import { Provider } from '../../../models/interfaces/provider/provider.interface';
-import { ProvidersWithInvoiceDetails } from '../../../models/interfaces/provider/providerDetailsInvoice.interface';
+import { Provider } from '../../../domain/models/interfaces/provider/provider.interface';
+import { ProvidersWithInvoiceDetails } from '../../../domain/models/interfaces/provider/providerDetailsInvoice.interface';
 import { DialogService } from '../../../core/services/dashboard/dialog/dialog.service';
-import { ProviderService } from '../../../core/services/provider/provider.service';
+import { ProviderService } from '../../../data/services/provider/provider.service';
 
 @Component({
   selector: 'app-create-provider',

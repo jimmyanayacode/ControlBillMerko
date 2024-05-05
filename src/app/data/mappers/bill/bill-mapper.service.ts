@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {
   Bill,
   BillBackendDto,
-  BillBackendGetResponse,
-} from '../../../models/interfaces/bill';
+  BillBackendResponse,
+} from '../../../domain/models/interfaces/bill';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ import {
 export class BillMapperService {
   constructor() {}
 
-  billBackendToBill(billFromBackend: BillBackendGetResponse): any {
+  billBackendResponse(billFromBackend: BillBackendResponse): any {
     return {
       nameProvider: billFromBackend.provider.name,
       numberBill: billFromBackend.numberBill,
@@ -22,7 +22,6 @@ export class BillMapperService {
   }
 
   BillAdapterDtoBackend(bill: Bill): BillBackendDto {
-    console.log(bill);
     return {
       numberBill: bill.numberBill,
       provider: bill.provider,

@@ -1,12 +1,9 @@
-
 export interface Provider {
   _id?: string;
-  providerName: string;
   credit: boolean;
-  selfWithHolding: boolean;
-  timelyPaymentDiscont: boolean;
+  providerName: string;
   salemen: string;
+  selfWithHolding: boolean;
   statusProvider?: boolean;
+  timelyPaymentDiscont: boolean;
 }
-
-

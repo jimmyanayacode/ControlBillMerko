@@ -1,11 +1,16 @@
-import { Injectable, inject } from '@angular/core';
-import { environment } from '../../../../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { Provider } from '../../../models/interfaces/provider/provider.interface';
-import { ProviderResponseInterface } from '../../../models/interfaces/provider/providerFromBackend.interface';
+import { Injectable } from '@angular/core';
+
 import { catchError, map, throwError } from 'rxjs';
-import { ProvidersWithInvoiceDetails } from '../../../models/interfaces/provider/providerDetailsInvoice.interface';
-import { ProviderMapperService } from '../../../data/mappers/provider/provider-mapper.service';
+import { environment } from '../../../../environment/environments';
+
+import {
+  Provider,
+  ProviderResponseInterface,
+  ProvidersWithInvoiceDetails,
+} from '../../../domain/models/interfaces/provider';
+
+import { ProviderMapperService } from '../../mappers/provider/provider-mapper.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +25,7 @@ export class ProviderService {
 
   createProvider(providerInfo: Provider) {
     const formatDataProvider =
-      this.mapperProvider.providerToProviderBackend(providerInfo);
+      this.mapperProvider.providerAdapterDtoBackend(providerInfo);
     const url = `${this.baseUrl}/provider`;
     const body = formatDataProvider;
 
@@ -55,7 +60,7 @@ export class ProviderService {
     return this.http.get<ProviderResponseInterface[]>(url).pipe(
       map((resp) =>
         resp.map((providers) =>
-          this.mapperProvider.providerFromBackendToProvider(providers)
+          this.mapperProvider.providerBackendResponse(providers)
         )
       ),
       catchError((error) => {

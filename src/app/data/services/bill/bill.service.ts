@@ -5,13 +5,13 @@ import { HttpClient } from '@angular/common/http';
 
 import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
 
-import { BillMapperService } from '../../../data/mappers/bill/bill-mapper.service';
+import { BillMapperService } from '../../mappers/bill/bill-mapper.service';
 
 import {
   Bill,
-  BillBackendGetResponse,
   BillBackendDto,
-} from '../../../models/interfaces/bill';
+  BillBackendResponse,
+} from '../../../domain/models/interfaces/bill';
 
 @Injectable({
   providedIn: 'root',
@@ -42,9 +42,9 @@ export class BillService {
 
   getAllBills() {
     const url = `${this.baseUrl}/bill`;
-    return this.http.get<BillBackendGetResponse[]>(url).pipe(
+    return this.http.get<BillBackendResponse[]>(url).pipe(
       map((resp) =>
-        resp.map((bill) => this.billMapperService.billBackendToBill(bill))
+        resp.map((bill) => this.billMapperService.billBackendResponse(bill))
       ),
       catchError((error) => {
         console.error('Error fetching all bills:', error);
@@ -62,10 +62,10 @@ export class BillService {
     const monthParam = month.join(',');
     console.log(monthParam);
     const url = `${this.baseUrl}/bill/dateMany/${year}/${monthParam}`;
-    return this.http.get<BillBackendGetResponse[]>(url).pipe(
+    return this.http.get<BillBackendResponse[]>(url).pipe(
       map((resp) => {
         const bills = resp.map((bill) =>
-          this.billMapperService.billBackendToBill(bill)
+          this.billMapperService.billBackendResponse(bill)
         );
         this.billFindByControl.next(bills);
       })

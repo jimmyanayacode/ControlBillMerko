@@ -22,10 +22,13 @@ import { Subject, takeUntil } from 'rxjs';
 
 import { TableInfoComponent } from '../../components/tableInfo/table-info/table-info.component';
 
-import { Provider } from '../../../models/interfaces/provider/provider.interface';
-import { BillBackendGetResponse, Bill } from '../../../models/interfaces/bill';
-import { BillService } from '../../../core/services/bill/bill.service';
-import { ProviderService } from '../../../core/services/provider/provider.service';
+import { Provider } from '../../../domain/models/interfaces/provider/provider.interface';
+import {
+  Bill,
+  BillBackendResponse,
+} from '../../../domain/models/interfaces/bill';
+import { BillService } from '../../../data/services/bill/bill.service';
+import { ProviderService } from '../../../data/services/provider/provider.service';
 import { StatusAuthService } from '../../../core/services/auth/statusAuth/status-auth.service';
 import { DialogService } from '../../../core/services/dashboard/dialog/dialog.service';
 
@@ -53,7 +56,7 @@ import { DialogService } from '../../../core/services/dashboard/dialog/dialog.se
 export default class AddBillComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   public creditAvailableByProvider = signal<boolean | undefined>(true);
-  public billResponse: BillBackendGetResponse[] = [];
+  public billResponse: BillBackendResponse[] = [];
   public providersList: Provider[] = [];
   public displayedColumnsBill: { title: string; key: string }[] = [
     { title: 'Proveedor', key: 'nameProvider' },
@@ -87,7 +90,7 @@ export default class AddBillComponent implements OnInit, OnDestroy {
       .getAllBills()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (data: BillBackendGetResponse[]) => {
+        next: (data: BillBackendResponse[]) => {
           this.billResponse = data;
         },
         error: (error) => {

@@ -6,7 +6,7 @@ import {
   AuthStatus,
   CheckTokenInterface,
   User,
-} from '../../../../models/interfaces/auth';
+} from '../../../../domain/models/interfaces/auth';
 import { Router } from '@angular/router';
 
 @Injectable({

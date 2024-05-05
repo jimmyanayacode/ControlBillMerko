@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ProviderResponseInterface } from '../../../models/interfaces/provider/providerFromBackend.interface';
-import { Provider } from '../../../models/interfaces/provider/provider.interface';
-import { ProvidersWithInvoiceDetails } from '../../../models/interfaces/provider/providerDetailsInvoice.interface';
-import { ProvidersWithInvoiceResponseDetails } from '../../../models/interfaces/provider/providerDetailsInvoiceFromBackend.interface';
+import {
+  Provider,
+  ProviderRequestInterface,
+  ProviderResponseInterface,
+  ProvidersWithInvoiceDetails,
+  ProvidersWithInvoiceResponseDetails,
+} from '../../../domain/models/interfaces/provider';
 
 @Injectable({
   providedIn: 'root',
@@ -10,26 +13,26 @@ import { ProvidersWithInvoiceResponseDetails } from '../../../models/interfaces/
 export class ProviderMapperService {
   constructor() {}
 
-  providerFromBackendToProvider(
+  providerBackendResponse(
     providerFromBackend: ProviderResponseInterface
   ): Provider {
     return {
       _id: providerFromBackend._id,
-      providerName: providerFromBackend.name,
       credit: providerFromBackend.creditAvalible,
+      providerName: providerFromBackend.name,
+      salemen: providerFromBackend.salemen,
       selfWithHolding: providerFromBackend.withHolding,
       timelyPaymentDiscont: providerFromBackend.timelyPaymentDiscont,
-      salemen: providerFromBackend.salemen,
     };
   }
 
-  providerToProviderBackend(provider: Provider): ProviderResponseInterface {
+  providerAdapterDtoBackend(provider: Provider): ProviderRequestInterface {
     return {
-      name: provider.providerName,
       creditAvalible: provider.credit,
-      withHolding: provider.selfWithHolding,
-      timelyPaymentDiscont: provider.timelyPaymentDiscont,
+      name: provider.providerName,
       salemen: provider.salemen,
+      timelyPaymentDiscont: provider.timelyPaymentDiscont,
+      withHolding: provider.selfWithHolding,
     };
   }
 
@@ -37,12 +40,12 @@ export class ProviderMapperService {
     providersWithInvoiceResponseDetails: ProvidersWithInvoiceResponseDetails
   ): ProvidersWithInvoiceDetails {
     return {
+      balanceCount: providersWithInvoiceResponseDetails.balanceCount,
       name: providersWithInvoiceResponseDetails.name,
       shoppingValue: providersWithInvoiceResponseDetails.shoppingValue,
-      balanceCount: providersWithInvoiceResponseDetails.balanceCount,
-      totalPayValue: providersWithInvoiceResponseDetails.totalPayValue,
       totalCreditPending:
         providersWithInvoiceResponseDetails.totalCreditPending,
+      totalPayValue: providersWithInvoiceResponseDetails.totalPayValue,
     };
   }
 }
