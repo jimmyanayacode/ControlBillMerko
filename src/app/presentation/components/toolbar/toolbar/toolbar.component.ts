@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { StatusAuthService } from '../../../../core/services/auth/statusAuth/status-auth.service';
+import { StatusAuthService } from '../../../../core/services/statusAuth/status-auth.service';
 import { ToolbarService } from '../../../../core/services/dashboard/toolbar/toolbar.service';
 
 @Component({

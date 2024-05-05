@@ -17,12 +17,12 @@ import { RouterModule } from '@angular/router';
 
 import { Subject, takeUntil } from 'rxjs';
 
-import { ErrordialogComponent } from '../../components/errordialog/errordialog.component';
-import { SpinnerLoaderComponent } from '../../components/spinnerLoader/spinner-loader/spinner-loader.component';
-import { StatusAuthService } from '../../../core/services/auth/statusAuth/status-auth.service';
-import { DialogService } from '../../../core/services/dashboard/dialog/dialog.service';
-import { LoginUserService } from '../../../core/services/auth/loginUser/login-user.service';
-import { ValidatorsService } from '../../../core/services/validators/validators.service';
+import { ErrordialogComponent } from '../../../../presentation/components/errordialog/errordialog.component';
+import { SpinnerLoaderComponent } from '../../../../presentation/components/spinnerLoader/spinner-loader/spinner-loader.component';
+import { StatusAuthService } from '../../../../core/services/statusAuth/status-auth.service';
+import { DialogService } from '../../../../core/services/dashboard/dialog/dialog.service';
+import { LoginUserService } from '../../../../data/services/auth/loginUser/login-user.service';
+import { ValidatorsService } from '../../../../core/services/validators/validators.service';
 
 @Component({
   selector: 'app-login-user',

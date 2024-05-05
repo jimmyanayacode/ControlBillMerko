@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { DashboardLayoutComponent } from './presentation/layout/dashboard-layout/dashboard-layout.component';
-import AuthPageComponent from './presentation/auth/auth-page/auth-page.component';
+import AuthPageComponent from './features/pages/auth/auth-page/auth-page.component';
 import { isAuthenticatedGuard } from './core/guards/is-authenticated/is-authenticated.guard';
 
 export const routes: Routes = [
@@ -12,7 +12,7 @@ export const routes: Routes = [
       {
         path: 'add-bill',
         loadComponent: () =>
-          import('./presentation/pages/add-bill/add-bill.component'),
+          import('./features/pages/bill/add-bill/add-bill.component'),
         data: {
           item: 'Adicionar factura',
         },
@@ -20,7 +20,7 @@ export const routes: Routes = [
       {
         path: 'search-bill',
         loadComponent: () =>
-          import('./presentation/pages/search-bill/search-bill.component'),
+          import('./features/pages/bill/search-bill/search-bill.component'),
         data: {
           item: 'Buscar facturas',
         },
@@ -29,7 +29,7 @@ export const routes: Routes = [
         path: 'create-provider',
         loadComponent: () =>
           import(
-            './presentation/pages/create-provider/create-provider.component'
+            './features/pages/provider/create-provider/create-provider.component'
           ),
         data: {
           item: 'Crear proveedor',
@@ -49,12 +49,12 @@ export const routes: Routes = [
       {
         path: 'register-user',
         loadComponent: () =>
-          import('./presentation/auth/register-user/register-user.component'),
+          import('./features/pages/auth/register-user/register-user.component'),
       },
       {
         path: 'login-user',
         loadComponent: () =>
-          import('./presentation/auth/login-user/login-user.component'),
+          import('./features/pages/auth/login-user/login-user.component'),
       },
       {
         path: '**',

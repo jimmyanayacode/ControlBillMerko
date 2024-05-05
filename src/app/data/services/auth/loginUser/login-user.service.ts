@@ -2,13 +2,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { environment } from '../../../../../environment/environments';
 
 import { LoginUserResponse } from '../../../../domain/models/interfaces/auth';
 
-import { StatusAuthService } from '../statusAuth/status-auth.service';
+import { StatusAuthService } from '../../../../core/services/statusAuth/status-auth.service';
 
 @Injectable({
   providedIn: 'root',

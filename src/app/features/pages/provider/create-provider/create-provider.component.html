@@ -1,0 +1,65 @@
+<div class="grid grid-cols-1 sm:grid-cols-4 h-screen">
+  <div class="h-full bg-customBlack mb-5 p-8">
+    <h2 class="font-medium text-lg lg:text-2xl text-indigo-500 mb-5 text-center">
+      Ingresar Información de Proveedor
+    </h2>
+    <div class="example-container ml-2 mr-2">
+      <form class="flex flex-col" [formGroup]="addProviderForm" (ngSubmit)="onSaveProvider()" autocomplete="off">
+
+        <!-- Provider name -->
+        <mat-form-field>
+          <mat-label>Nombre proveedor</mat-label>
+          <input matInput type="text" placeholder="gavassa, nutresa" formControlName="providerName" required />
+        </mat-form-field>
+
+        <!-- Is credit -->
+        <mat-form-field>
+          <mat-label>Tipo de pago</mat-label>
+          <mat-select formControlName="credit" required>
+            <mat-option [value]="false">Contado</mat-option>
+            <mat-option [value]="true">Credito</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Provider name -->
+        <mat-form-field>
+          <mat-label>Nombre vendedor</mat-label>
+          <input matInput type="text" placeholder="Ingrese nombre del vendedor" formControlName="salemen" required />
+        </mat-form-field>
+
+        <mat-checkbox formControlName="selfWithHolding"
+          class=" bg-indigo-500 py-2 px-4 rounded-md hover:bg-indigo-700 mb-6 transition-all duration-200 ease-in-out;">Autoretenedor</mat-checkbox>
+        <mat-checkbox formControlName="timelyPaymentDiscont"
+          class=" bg-indigo-500 py-2 px-4 rounded-md hover:bg-indigo-700 mb-6 transition-all duration-200 ease-in-out;">Aplica
+          descuento financiero</mat-checkbox>
+
+
+
+        <button type="submit" mat-raised-button color="primary">
+          Crear Proveedor
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-span-3 h-full bg-customBlack sm:ml-5 p-8">
+    <h2 class="font-medium text-lg lg:text-2xl text-indigo-500 mb-5 text-center">
+      Proveedores
+    </h2>
+
+    <component-table [filterProperty]="true" [dataTable]="providersResponse"
+      [displayedColumnsDinamic]="displayedColumnsProvider"></component-table>
+    <!-- <filter-control-component class="text-center"></filter-control-component> -->
+
+  </div>
+
+</div>
+
+
+<!-- <div>
+  <filter-control-component class="text-center"></filter-control-component>
+</div>
+
+<div>
+  <component-table [filterProperty]="true"></component-table>
+</div> -->

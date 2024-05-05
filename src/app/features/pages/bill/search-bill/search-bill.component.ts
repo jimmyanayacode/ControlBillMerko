@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TableInfoComponent } from '../../components/tableInfo/table-info/table-info.component';
+import { TableInfoComponent } from '../../../../presentation/components/tableInfo/table-info/table-info.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FilterControlComponent } from '../../components/filterControl/filter-control/filter-control.component';
+import { FilterControlComponent } from '../../../../presentation/components/filterControl/filter-control/filter-control.component';
 import { Subject, takeUntil } from 'rxjs';
-import { Bill } from '../../../domain/models/interfaces/bill';
-import { BillService } from '../../../data/services/bill/bill.service';
+import { Bill } from '../../../../domain/models/interfaces/bill';
+import { BillService } from '../../../../data/services/bill/bill.service';
 
 @Component({
   selector: 'app-search-bill',

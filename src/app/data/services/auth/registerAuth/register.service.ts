@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { catchError, map, throwError } from 'rxjs';
 import { environment } from '../../../../../environment/environments';
 import { UserRegisterResponse } from '../../../../domain/models/interfaces/auth/register-response.interface';
-import { StatusAuthService } from '../statusAuth/status-auth.service';
+import { StatusAuthService } from '../../../../core/services/statusAuth/status-auth.service';
 
 interface UserResponse {
   id: string;

@@ -14,11 +14,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
 
-import { ErrordialogComponent } from '../../components/errordialog/errordialog.component';
-import { SpinnerLoaderComponent } from '../../components/spinnerLoader/spinner-loader/spinner-loader.component';
+import { ErrordialogComponent } from '../../../../presentation/components/errordialog/errordialog.component';
+import { SpinnerLoaderComponent } from '../../../../presentation/components/spinnerLoader/spinner-loader/spinner-loader.component';
 import { Subject, takeUntil } from 'rxjs';
-import { ValidatorsService } from '../../../core/services/validators/validators.service';
-import { RegisterService } from '../../../core/services/auth/registerAuth/register.service';
+import { ValidatorsService } from '../../../../core/services/validators/validators.service';
+import { RegisterService } from '../../../../data/services/auth/registerAuth/register.service';
 
 @Component({
   selector: 'app-register-user',

@@ -1,12 +1,12 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { Observable, catchError, map, of, retry } from 'rxjs';
-import { environment } from '../../../../../environment/environments';
+import { environment } from '../../../../environment/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
   AuthStatus,
   CheckTokenInterface,
   User,
-} from '../../../../domain/models/interfaces/auth';
+} from '../../../domain/models/interfaces/auth';
 import { Router } from '@angular/router';
 
 @Injectable({

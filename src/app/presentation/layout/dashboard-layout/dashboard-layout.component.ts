@@ -14,7 +14,7 @@ import { ToolbarComponent } from '../../components/toolbar/toolbar/toolbar.compo
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Subject, takeUntil } from 'rxjs';
-import { StatusAuthService } from '../../../core/services/auth/statusAuth/status-auth.service';
+import { StatusAuthService } from '../../../core/services/statusAuth/status-auth.service';
 import { ToolbarService } from '../../../core/services/dashboard/toolbar/toolbar.service';
 
 @Component({

@@ -20,17 +20,16 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 
 import { Subject, takeUntil } from 'rxjs';
 
-import { TableInfoComponent } from '../../components/tableInfo/table-info/table-info.component';
-
-import { Provider } from '../../../domain/models/interfaces/provider/provider.interface';
+import { Provider } from '../../../../domain/models/interfaces/provider/provider.interface';
 import {
   Bill,
   BillBackendResponse,
-} from '../../../domain/models/interfaces/bill';
-import { BillService } from '../../../data/services/bill/bill.service';
-import { ProviderService } from '../../../data/services/provider/provider.service';
-import { StatusAuthService } from '../../../core/services/auth/statusAuth/status-auth.service';
-import { DialogService } from '../../../core/services/dashboard/dialog/dialog.service';
+} from '../../../../domain/models/interfaces/bill';
+import { BillService } from '../../../../data/services/bill/bill.service';
+import { ProviderService } from '../../../../data/services/provider/provider.service';
+import { StatusAuthService } from '../../../../core/services/statusAuth/status-auth.service';
+import { DialogService } from '../../../../core/services/dashboard/dialog/dialog.service';
+import { TableInfoComponent } from '../../../../presentation/components/tableInfo/table-info/table-info.component';
 
 @Component({
   selector: 'app-add-bill',
