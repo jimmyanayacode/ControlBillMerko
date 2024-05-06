@@ -14,6 +14,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/pages/bill/add-bill/add-bill.component'),
         data: {
+          category: 'Facturas',
           item: 'Adicionar factura',
         },
       },
@@ -22,6 +23,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/pages/bill/search-bill/search-bill.component'),
         data: {
+          category: 'Facturas',
           item: 'Buscar facturas',
         },
       },
@@ -32,6 +34,7 @@ export const routes: Routes = [
             './features/pages/provider/create-provider/create-provider.component'
           ),
         data: {
+          category: 'Proveedor',
           item: 'Crear proveedor',
         },
       },

@@ -1,14 +1,10 @@
 <main class="flex flex-row">
   <!-- Menu -->
   @if( menu() ){
-  <nav
-    id="navMenu"
-    class="w-full bg-customBackgroundBlack p-10 fixed inset-0 z-50 sm:relative  sm:max-w-[370px] sm:h-auto sm:bg-white sm:bg-opacity-10"
-  >
+  <nav id="navMenu"
+    class="w-full bg-customBackgroundBlack p-10 fixed inset-0 z-50 sm:relative  sm:max-w-[370px] sm:h-auto sm:bg-white sm:bg-opacity-10">
     <div class="flex flex-row items-baseline justify-between">
-      <h1
-        class="font-bold text-3xl bg-gradient-to-br from-white via-white/80 bg-clip-text text-transparent"
-      >
+      <h1 class="font-bold text-3xl bg-gradient-to-br from-white via-white/80 bg-clip-text text-transparent">
         Merkofamiliar<span class="text-indigo-500">.</span>
       </h1>
 
@@ -17,19 +13,12 @@
 
     <span class="text-xl">Bienvenido</span>
 
-
     <div class="border-gray-700 border my-3"></div>
 
     <!-- Nav Links -->
-
-    @for (route of routes; track route.path) {
-    <sidebar-menu
-      [item]="route.data!['item']"
-      [path]="route.path!"
-    ></sidebar-menu>
-    }
-
+    <sidebar-menu></sidebar-menu>
     <!-- End Nav Links -->
+
   </nav>
   }
 

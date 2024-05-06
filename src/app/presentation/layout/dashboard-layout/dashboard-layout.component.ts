@@ -52,5 +52,5 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
 
   menu = computed(() => this.toolbarService.toggleNavigation());
 
-  public routes = routes[0].children?.filter((route) => route.data);
+  /* public routes = routes[0].children?.filter((route) => route.data); */
 }
